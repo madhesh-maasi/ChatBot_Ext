@@ -138,8 +138,8 @@ const PersonalAssistant: React.FC<IPersonalAssistantProps> = (props) => {
       functionResult = await getMyDocuments(
         functionArguments.getFileName,
         functionArguments.getFolderName,
-        functionArguments.getPeriod,
-        functionArguments.getCustomerName
+        functionArguments.getYear,
+        functionArguments.getMonth
       );
     }
 
@@ -161,6 +161,11 @@ const PersonalAssistant: React.FC<IPersonalAssistantProps> = (props) => {
       const response_finish_reason = response["choices"][0]["finish_reason"];
       switch (response_finish_reason) {
         case "stop": {
+          const responseText = response["choices"][0]["message"]["content"];
+          showMessage(responseText);
+          break;
+        }
+        case "length": {
           const responseText = response["choices"][0]["message"]["content"];
           showMessage(responseText);
           break;
